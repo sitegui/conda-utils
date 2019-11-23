@@ -64,7 +64,8 @@ function activate_current_conda {
         echo "Activation failed. Maybe the environment $ENV_NAME does not exist"
 
         while true; do
-            read -r -p "Do you want me to create it for you? (yes/no) " yn
+            echo -n "Do you want me to create it for you? (yes/no) "
+            read -r yn
             case $yn in
                 [Yy]* ) break;;
                 [Nn]* )
@@ -83,7 +84,7 @@ function activate_current_conda {
         # Remove previous ignore lines
         if [[ -r "$IGNORE_FILE" ]]; then
             grep -vx "$ENV_NAME" "$IGNORE_FILE" > "$IGNORE_FILE.temp" || true
-            mv "$IGNORE_FILE.temp" "$IGNORE_FILE"
+            mv -f "$IGNORE_FILE.temp" "$IGNORE_FILE"
         fi
     fi
 
